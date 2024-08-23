@@ -1,0 +1,94 @@
+---
+title: "Ejercicios de la Primera Clase de R"
+author: "Rocha-Echavarría, R."
+date: "2024-08-14"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Matrices
+
+Hacemos una breve introducción al uso de matrices.
+
+```{r}
+# Matrices
+
+matriz <- matrix(1:9, nrow = 3, ncol = 3) # Creamos una matriz que va del 1 al 9 con 3 filas y 3 columnas.
+print(matriz) # Imprimimos para verla.
+```
+
+### Listas
+
+Hacemos una breve introducción al uso de listas.
+
+```{r}
+# Listas
+
+vector_num <- c(1,2,3,4,5) # Creamos un vector.
+
+lista <- list(nombre = "Juan", edad = 30, vector = vector_num) # Guardamos diferentes tipos de datos.
+
+print(lista) # Imprimimos la lista.
+```
+
+### Dataframe
+
+Hacemos una breve introducción al uso de uno de los tipos de datos mas importantes, los dataframes.
+
+```{r}
+# Dataframe
+
+df <- data.frame(nombre = "Juan","Luisa", edad = c(23,24)) # Creamos el data frame con 2 filas y 2 columnas.
+print(df) # Imprimimos.
+
+head(iris) # Llamamos el dataframe de Iris.
+iris$Sepal.Length # Observamos los valores del "Sepal.Length".
+iris[1:10,3] # Observamos la tercera columna.
+
+df_filtrado <- subset(iris, Sepal.Width > 4) # Filtramos con subset, solo valores arriba de 4.
+colnames(iris) # Conocemos los nombres para las columnas.
+df_filtrado # Llamamos el dataframe filtrado.
+
+# Observamos Ciertos Valores de "Sepal.Length"
+
+sepalLength <- iris[,"Sepal.Length"]
+max(sepalLength)
+length(sepalLength)
+mean(sepalLength)
+```
+
+### Gráficos con Iris
+
+Dentro de este primer trabajo para la clase se hace uso del dataframe de Iris, la libreria de "ggplot2", y el paquete de "Tidyverse".
+
+```{r}
+# Filtrado del Dataframe
+
+iris # Obtenemos el dataframe.
+
+irisFilter <- subset(iris, Sepal.Length > 4.9) # Filtramos por "Sepal.Length".
+
+irisFilter # Dataframe filtrado.
+```
+
+### Graficando el Dataframe Filtrado
+
+Utilizando el dataframe al que se filtró por "Sepal.Length" arriba de 4.9, se obtiene la siguiente gráfica. Evitamos correr esta sección debido a la necesidad de librerias.
+
+```{r}
+# Recursos Necesarios.
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+install.packages("tidyverse")
+library("ggplot2")
+
+# Ploteamos.
+
+ggplot(data=irisFilter, aes(x=Sepal.Length, y=Sepal.Width, color=Species, shape=Species, size=2)) + geom_point() + facet_grid(Species ~ .)
+
+levels(iris$Species) # Para saber los diferentes valores en "Species".
+```
